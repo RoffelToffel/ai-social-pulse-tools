@@ -1,0 +1,4 @@
+# Laufzeit- und Arbeitsdateien der Routine – laut README nicht versionieren
+# (.runtime/: Chromium-Pfad und SPKI-Pin aus setup.sh; out/: Briefing, Feeds, Versandergebnis)
+out/
+.runtime/
