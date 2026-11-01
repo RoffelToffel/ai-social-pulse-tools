@@ -1,0 +1,7 @@
+# Reddit-RSS: https://www.reddit.com/r/<sub>/new.rss?limit=100 (429 = Rate-Limit -> 20-30 s warten)
+artificial
+LocalLLaMA
+MachineLearning
+singularity
+OpenAI
+ClaudeAI

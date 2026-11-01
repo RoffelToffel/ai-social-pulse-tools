@@ -1,0 +1,16 @@
+# Google-News-RSS NUR zur Entdeckung – pubDate ist kein Beleg (Archivartikel kommen mit aktuellem Datum).
+# when:1d bei erweitertem Fenster auf when:3d ändern.
+https://news.google.com/rss/search?q=site:reuters.com+AI+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:cnbc.com+AI+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:axios.com+AI+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=OpenAI+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=Anthropic+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=DeepSeek+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=Nvidia+AI+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=Google+Gemini+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22artificial+intelligence%22+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=KI+when:1d&hl=de&gl=DE&ceid=DE:de
+https://news.google.com/rss/search?q=%22Deutsche+Post%22+OR+DHL+when:1d&hl=de&gl=DE&ceid=DE:de
+https://news.google.com/rss/search?q=DHL+AI+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=logistics+AI+when:1d&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=EU+AI+Act+when:1d&hl=de&gl=DE&ceid=DE:de

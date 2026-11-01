@@ -1,0 +1,7 @@
+# Deutsche/DACH-Feeds – alle am 01.11.2026 erreichbar
+https://www.heise.de/rss/heise-atom.xml
+https://rss.golem.de/rss.php?feed=ATOM1.0
+https://t3n.de/rss.xml
+https://netzpolitik.org/feed/
+https://www.handelsblatt.com/contentexport/feed/schlagzeilen
+https://www.handelsblatt.com/contentexport/feed/top-themen

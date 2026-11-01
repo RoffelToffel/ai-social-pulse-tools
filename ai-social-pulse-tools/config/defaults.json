@@ -1,0 +1,10 @@
+{
+  "brand": "AI Social Pulse",
+  "subject_prefix": "AI Social Pulse – Dein KI-Briefing für den {date}",
+  "timezone": "Europe/Berlin",
+  "fallback": {
+    "BRIEFING_FROM": "cedricarnold.privat@gmail.com",
+    "BRIEFING_FROM_NAME": "AI Social Pulse",
+    "BRIEFING_TO": "cedric.arnold@deutschepost.de"
+  }
+}

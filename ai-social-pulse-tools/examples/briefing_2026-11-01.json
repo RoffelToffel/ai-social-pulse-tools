@@ -1,0 +1,184 @@
+{
+ "date": "01.11.2026",
+ "now_utc": "2026-11-01T10:32:14Z",
+ "window_start_utc": "2026-10-31T10:32:14Z",
+ "subject_topics": ["DeepSeek-Agent", "KI-Infostealer"],
+ "preheader": "DeepSeek öffnet seinen Super-Agent, ein Infostealer lässt KI die Beute bewerten, Anthropics Claude-Sperren sorgen für Unmut.",
+ "tldr": [
+  "🐋 **DeepSeek** stellt den Forschungsprototyp seines proaktiven Coding-Agenten „Super-Agent“ quelloffen auf GitHub. Auf Reddit gibt es viel Zuspruch, auf Hacker News kaum Beachtung.",
+  "🦠 **KI als Beute-Gutachter:** Der Infostealer VOLTA-AUTODOXER lässt ein Sprachmodell gestohlene Daten nach Geldwert sortieren. Auf HN geht es vor allem um Supply-Chain-Risiken durch Agenten-Tools.",
+  "🎮 **Größte Social-Welle:** Anthropics neue Claude-Leitplanken (Spiele-Klone, Reverse Engineering, „Training von Konkurrenzmodellen“). Der Auslöser stammt vom 27./30.10., Bericht und Reaktionen sind frisch.",
+  "📈 **Südkorea:** Exporte +93,7 %, Chips +259 % im Oktober. Die Realwirtschaft zeigt noch keine KI-Delle, anders als die Börse.",
+  "📦 **Radar:** DHL Group war bei der APK 2026 in Seoul unter den Konzernen, die über industrielle KI diskutierten; sonst ein ruhiger Logistik-Tag.",
+  "🗓️ **Läuft noch:** Anthropics Börsengang (S-1 seit 26.10.) und OpenAIs gekürztes Finanzierungsziel (FT, 31.10.)."
+ ],
+ "cards": [
+  {
+   "status": "new",
+   "emoji": "🐋",
+   "title": "DeepSeek veröffentlicht „Super-Agent“-Prototyp als Open Source",
+   "company": "DeepSeek",
+   "stamps": [
+    {"utc": "2026-10-31T12:05:39Z", "url": "https://github.com/deepseek-ai/dsh-superagent-prototype", "label": "GitHub-Commit", "level": "primary"},
+    {"utc": "2026-11-01T03:48:18Z", "url": "https://www.bloomberg.com/news/articles/2026-11-01/deepseek-drops-enhanced-coding-agent-with-aim-to-rival-anthropic", "label": "Bloomberg (Zeit laut Bloomberg-RSS)", "level": "secondary", "paywall": true}
+   ],
+   "body": [
+    "Das „DeepSeek Harness“-Team hat mit _dsh-superagent-prototype_ einen proaktiven Coding-Agenten für ein einzelnes GitHub-Repository veröffentlicht. Er hört auf GitHub (optional auf Feishu), legt Arbeitspakete an, arbeitet sie in einer eigenen Agenten-Session ab und antwortet im ursprünglichen Gesprächsfaden, etwa mit einem Pull Request. Ein Web-Panel zeigt an, wo ein Mensch gebraucht wird.",
+    "Kernprinzip laut README: „take as little human attention as possible“. Der Agent handelt nur, wenn eine berechtigte Person ihn anspricht oder eine vom Team geschriebene Regel es erlaubt. DeepSeek betont, es handle sich um Forschungscode und **kein offizielles Produkt**; ein Großteil sei von Coding-Agenten selbst geschrieben worden. Bloomberg ordnet den Schritt als Angriff auf Anthropics Claude Code ein (laut Schlagzeile und Techmeme-Zusammenfassung; der Artikeltext war nicht abrufbar).",
+    "GitHub: {gh:deepseek-ai/dsh-superagent-prototype}."
+   ],
+   "social": {
+    "ampel": "yellow",
+    "basis": "13 von 14 Reddit-Kommentaren gelesen; HN-Threads ohne Kommentare",
+    "items": [
+     "[r/singularity](https://www.reddit.com/r/singularity/comments/1xkoi9g/): **{rd:1xkoi9g}**. Der meistgelikte Kommentar hält den Agenten selbst für eher gewöhnlich. Bemerkenswert sei, wie konsequent er darauf ausgelegt ist, still zu bleiben: Proaktive, regelbasierte Arbeit startet zunächst in einem reinen Protokoll-Modus. Andere winken ab („im Grunde ein GitHub-Bot“), einer lobt, so sollte offene KI aussehen.",
+     "[Hacker News](https://news.ycombinator.com/item?id=50316116): kaum Resonanz ({hn:50316116}; zweiter Post {hn:50321277}). Bluesky: nur vereinzelte Posts mit wenigen Dutzend Likes."
+    ]
+   },
+   "relevance": "Für Entwicklungsteams interessant als Referenzarchitektur für zurückhaltende Repo-Agenten: Arbeitspakete, Freigaberegeln, Protokoll-Modus vor echter Aktion. Den Code selbst einzusetzen wäre wie bei jedem Open-Source-Agenten eine Frage von Lizenz, Abhängigkeiten, Rechten im Repository und Datenflüssen. Als Ideengeber taugt das Design auch ohne den Code.",
+   "opinion": "Spannend ist hier weniger das Modell als die Aufmerksamkeits-Ökonomie: Ein Agent, der standardmäßig schweigt, ist das Gegenmodell zu geschwätzigen Assistenten. Die Lücke zwischen dem Reddit-Echo und null HN-Kommentaren zeigt, wie unterschiedlich westliche Entwickler-Communities DeepSeek gerade gewichten."
+  },
+  {
+   "status": "new",
+   "emoji": "🦠",
+   "title": "Infostealer „VOLTA-AUTODOXER“ lässt ein Sprachmodell die Opfer bewerten",
+   "company": "VOLTA (Malware)",
+   "stamps": [
+    {"utc": "2026-10-31T12:00:00Z", "url": "https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/", "label": "Cisco Talos", "level": "primary"},
+    {"utc": "2026-10-31T12:00:00Z", "url": "https://www.wired.com/story/kernel-panic-volta-autodoxer-ai-infostealer-malware/", "label": "Wired", "level": "secondary"}
+   ],
+   "body": [
+    "Cisco Talos beschreibt einen sich selbst löschenden Windows-Infostealer. Er greift die übliche Beute ab (Browser-Passwörter, Cookies, Zahlungskarten, Krypto-Seed-Phrasen, Sessions von Discord, Telegram und Steam, OAuth-Tokens, SSH- und Cloud-Schlüssel, WLAN-Profile) und schickt das gebündelte Profil anschließend über OpenRouter an ein LLM.",
+    "Das Modell soll als „Forensik-Analyst“ ein Zielprofil erstellen, inklusive Rangliste der Wertgegenstände nach Monetarisierbarkeit und Einschätzung der Passwort-Hygiene. Verweigert ein Modell, wechselt die Malware in einer Kette auf bis zu drei kleinere, freizügigere Modelle. Talos deutet den Aufbau als Baukasten, den der Autor an Kunden verkauft; eigene Infrastruktur der Täter fand Talos nicht."
+   ],
+   "social": {
+    "ampel": "yellow",
+    "basis": "ca. 40 von 131 HN-Kommentaren gelesen",
+    "items": [
+     "[Hacker News](https://news.ycombinator.com/item?id=50316531): **{hn:50316531}** ({hnrate:50316531}). Skeptiker meinen, LLMs seien für Priorisierung langsamer, teurer und ungenauer als spezialisierte Tools. Die Gegenseite hält „gut genug für den Start“ für eine plausible Täterstrategie.",
+     "Größere Sorge im Thread: Supply-Chain-Angriffe über schnell aktualisierende Entwickler-Tools und KI-Agenten. Viele raten zu Sandboxes, VMs oder QubesOS. Mehrere berichten, Coding-Agenten durchsuchten bei Problemen das Home-Verzeichnis."
+    ]
+   },
+   "relevance": "Direkt relevant für Client- und Entwickler-Security: Ziel sind Browser-Sessions, OAuth-Tokens sowie SSH- und Cloud-Schlüssel, also genau die Zugänge, die in großen Umgebungen Lateralbewegung ermöglichen. Die KI-Triage beschleunigt, welche erbeuteten Zugänge zuerst missbraucht werden. Prüfenswert: Lebensdauer von Tokens und Sessions, phishing-resistente MFA und die Absicherung von Entwicklerrechnern mit Agenten-Tools.",
+   "opinion": "Neu ist nicht die Technik, sondern die Ökonomie: KI-Triage macht „alles stehlen, später sortieren“ skalierbar. Entwickler-Rechner mit Agenten-Tools sollte man wie privilegierte Systeme behandeln."
+  },
+  {
+   "status": "new",
+   "emoji": "🎮",
+   "title": "Anthropic zieht Claude-Leitplanken an – die größte Social-Welle des Tages",
+   "company": "Anthropic",
+   "trigger_note": "**Auslöser älter:** Die Spiele-Regel war laut Nutzerbeobachtung seit ca. 27.10. aktiv und wurde am 30.10., 19:52 MEZ erstmals berichtet ([Game Developer](https://www.gamedeveloper.com/programming/anthropic-appears-to-have-ordered-ai-tool-claude-to-stop-remaking-video-games)). Anthropic bestätigte sie noch am 30.10. Frisch sind der Tom's-Hardware-Bericht über weitergehende Sperren und die Reaktionswelle.",
+   "stamps": [
+    {"utc": "2026-10-31T12:20:00Z", "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/anthropics-ai-model-is-now-blocking-attempts-at-video-game-recreation-and-cloning-users-also-claim-non-malicious-generic-reverse-engineering-tasks-are-blocked", "label": "Tom's Hardware", "level": "secondary"},
+    {"utc": "2026-10-31T14:28:41Z", "url": "https://mashable.com/tech/anthropic-takes-steps-to-block-video-game-cloning-and-reverse-engineering", "label": "Mashable", "level": "secondary"},
+    {"utc": "2026-10-31T15:23:04Z", "url": "https://www.pcgamer.com/gaming-industry/anthropic-updates-claude-to-steer-it-away-from-letting-users-clone-games-following-weeks-of-steam-being-inundated-with-ai-slop/", "label": "PC Gamer", "level": "secondary"}
+   ],
+   "body": [
+    "Laut Game Developer und PC Gamer hat Anthropic dem Claude-Code-Prompt für Opus 5.5 eine Regel hinzugefügt: Originale, Genre-Spiele und Spiele nach eigenen Entwürfen sind erlaubt, der Nachbau eines konkreten existierenden Spiels nicht, auch nicht unter neuem Namen. Ein Anthropic-Mitarbeiter bestätigte das sinngemäß auf X mit dem Verweis, IP-Verletzungen verstießen gegen die Nutzungsrichtlinie; man wolle die Balance weiter justieren.",
+    "Tom's Hardware sammelt zusätzlich (nicht offiziell bestätigte) Nutzerberichte über Verweigerungen bei harmlosem Reverse Engineering, beim Analysieren eines Crash-Dumps, bei Anti-Cheat-Entwicklung und Security-Reviews. Einen möglichen Zusammenhang sieht das Magazin mit Anthropics Cyber Verification Program vom 6.10.",
+    "Parallel ging ein [X-Post](https://x.com/jiahaoshao1/status/2116475922190922088) eines Forschers viral (31.10., 11:22 MEZ, über fxtwitter geprüft; 10 Minuten vor Fensterbeginn): Er sei fälschlich als „Training eines Konkurrenzmodells“ markiert worden und werde seitdem bei allem rund um Fine-Tuning und das Training größerer Modelle blockiert oder herabgestuft. Das ist eine Einzelschilderung und nicht unabhängig geprüft."
+   ],
+   "social": {
+    "ampel": "red",
+    "basis": "ca. 100 Kommentare aus drei HN- und zwei Reddit-Threads gelesen",
+    "items": [
+     "HN: [Training-Sperren](https://news.ycombinator.com/item?id=50319358) **{hn:50319358}** ({hnrate:50319358}) · [Reverse Engineering](https://news.ycombinator.com/item?id=50320255) **{hn:50320255}** · [Tom's-HW-Thread](https://news.ycombinator.com/item?id=50315987) **{hn:50315987}**.",
+     "Reddit: [r/artificial](https://www.reddit.com/r/artificial/comments/1xkibsh/) **{rd:1xkibsh}** · [r/singularity](https://www.reddit.com/r/singularity/comments/1xkwvhe/) **{rd:1xkwvhe}**.",
+     "Tenor: Viele sehen eine Doppelmoral (Training auf den Daten der Welt, Einschränkungen für Nutzer), kündigen Abos oder verweisen auf Open-Weight-, chinesische und lokale Modelle. Als Motiv vermuten sie Klagerisiko und Börsengang. Andere halten dagegen, ein Anbieter dürfe seine Bedingungen selbst setzen. Einige nennen es „alte Nachricht“ oder sehen bei sich keine Änderung. Ein HN-Nutzer merkt an, der X-Autor sitze in Hongkong, wo Claude nicht angeboten wird; Nutzer aus den USA und der EU berichten jedoch Ähnliches."
+    ]
+   },
+   "relevance": "Wer Frontier-Modelle in Entwicklung oder Security nutzt (Reverse Engineering, Malware- oder Crash-Dump-Analyse, Schutzmechanismen), muss mit anbieterseitigen Leitplanken rechnen, die sich ohne Vorankündigung ändern. Für kritische Workflows lohnen dokumentierte Ausweichpfade (zweiter Anbieter, intern betriebene Modelle) und ein Blick auf die Verifikationsprogramme der Anbieter für Security-Teams.",
+   "opinion": "(Offenlegung: Dieses Briefing schreibt Claude, also ein Anthropic-Modell; hier besteht ein Interessenkonflikt.) Nüchtern betrachtet: Die Spiele-Regel hat einen nachvollziehbaren IP-Kern, ihre vage Formulierung produziert aber absehbar Fehlalarme bei Retro-Ports, Preservation und Modding. Mehr Transparenz darüber, was warum blockiert wird, würde der Debatte helfen. Jede Einschränkung treibt Power-User erkennbar Richtung Open Weights."
+  },
+  {
+   "status": "new",
+   "emoji": "📈",
+   "title": "Südkorea: Exporte +93,7 % im Oktober – der KI-Chipboom in Zahlen",
+   "company": "Südkorea (Handelsministerium)",
+   "stamps": [
+    {"utc": "2026-11-01T01:33:57Z", "url": "https://en.yna.co.kr/view/AEN20261101000952320", "label": "Yonhap (2nd LD), Daten des Handelsministeriums", "level": "secondary"}
+   ],
+   "body": [
+    "Südkoreas Exporte stiegen im Oktober um 93,7 % auf den Rekordwert von 115,3 Mrd. US-Dollar, laut Yonhap das stärkste Wachstum seit 1974. Halbleiter-Exporte legten um 259 % auf 56,4 Mrd. US-Dollar zu.",
+    "Die Lieferungen in die USA wuchsen um 185,8 %, getrieben von Chips, Computern und Elektrotechnik für KI-Infrastruktur, die nach China um 133,6 %. Von Januar bis Oktober wurden erstmals über 900 Mrd. US-Dollar überschritten; das Ministerium hält 1 Billion schon im November für möglich."
+   ],
+   "social": {
+    "ampel": null,
+    "basis": "",
+    "items": ["Keine nennenswerte Diskussion auf Hacker News oder in den beobachteten Subreddits gefunden."]
+   },
+   "relevance": "Hohe Nachfrage nach Chips und Speicher spricht eher für anhaltend hohe Preise und längere Lieferzeiten bei Server- und Client-Hardware. Das betrifft Beschaffung sowie Rechenzentrums- und Cloud-Budgets.",
+   "opinion": "Während US-Techwerte wegen KI-Ausgabensorgen korrigieren (siehe „Läuft noch“), läuft die physische Lieferkette auf Hochtouren. Die Realwirtschaft sagt: Die Investitionen bremsen noch nicht. Spannend wird, welche Kurve zuerst nachgibt."
+  }
+ ],
+ "shorts": [
+  {"emoji": "🤖", "company": "Meta", "text": "Meta hat laut The Information mit dem chinesischen Start-up Fourier einen Humanoiden-Prototyp gebaut und arbeitet an einer zweiten Version. Die Angaben „in drei Monaten gebaut“ und „kein Verkauf geplant“ stammen nur aus der Techmeme-Zusammenfassung.",
+   "stamps": [{"utc": "2026-10-31T16:20:00Z", "url": "https://www.thestar.com.my/tech/tech-news/2026/11/01/meta-builds-humanoid-robot-with-chinese-startup-fourier-the-information-says", "label": "Reuters via The Star", "level": "secondary"}],
+   "social": "[r/singularity](https://www.reddit.com/r/singularity/comments/1xklfo1/): {rd:1xklfo1}. Die Debatte dreht sich um Sicherheitsbedenken wegen des chinesischen Partners und kippt dann in einen Streit über Wortwahl."},
+  {"emoji": "🏛️", "company": "Anthropic", "text": "Anthropic überwies kurz vor der Wahl 900.000 US-Dollar an Komitees der Demokraten in Kalifornien, darunter 45.000 an die Partei in San Francisco.",
+   "stamps": [{"utc": "2026-10-31T20:10:00Z", "url": "https://sfstandard.com/2026/10/31/anthropic-democratic-party-contributions-sf-dems/", "label": "San Francisco Standard", "level": "secondary"}],
+   "social": null},
+  {"emoji": "⚖️", "company": "xAI", "text": "Eine US-Bundesrichterin hat xAIs Antrag abgewiesen, die NAACP-Klage wegen ungenehmigter Gasturbinen am Colossus-Rechenzentrum bei Memphis abzuweisen. Die Klage läuft weiter. Das Datum der Entscheidung nennt der Bericht nicht; CNBC meldete laut Google News bereits um 19:56 MEZ.",
+   "stamps": [{"utc": "2026-10-31T21:17:03Z", "url": "https://techcrunch.com/2026/10/31/judge-allows-naacp-lawsuit-over-xai-data-center-pollution-to-move-forward/", "label": "TechCrunch", "level": "secondary"}],
+   "social": null},
+  {"emoji": "🇩🇪", "company": "Bundespräsidialamt", "text": "Bundespräsident Steinmeier: Europa müsse bei KI zu USA und China aufschließen, um über die Regeln mitbestimmen zu können. KI sei auch eine Frage europäischer Sicherheit (sinngemäß, laut dpa-AFX).",
+   "stamps": [{"utc": "2026-11-01T10:26:21Z", "url": "https://www.ariva.de/news/steinmeier-europa-kann-zur-ki-nicht-nein-sagen-12189875", "label": "dpa-AFX via ARIVA", "level": "secondary"}],
+   "social": null}
+ ],
+ "radar": [
+  {"emoji": "🌏", "company": "DHL Group", "text": "Bei der Asien-Pazifik-Konferenz der Deutschen Wirtschaft (APK 2026) in Seoul diskutierten laut Korea Herald Führungskräfte u. a. von Siemens, BASF, Deutsche Bank und **DHL Group** über industrielle KI, Handelsregeln und resiliente Lieferketten. Die Konferenz lief vom 29. bis 31.10.; der Bericht ist frisch.",
+   "stamps": [{"utc": "2026-11-01T04:17:13Z", "url": "https://www.koreaherald.com/article/10921701", "label": "Korea Herald", "level": "secondary"}],
+   "relevance": "Zeigt die öffentliche Konzern-Agenda: KI und Lieferketten-Resilienz stehen auch bei Auftritten in Asien weit oben (keine Details zu internen Projekten).",
+   "social": null},
+  {"emoji": "🧭", "company": "Inform", "text": "Logistik-IT: Der Softwareanbieter Inform stellt mit „NEWSCAST“ ein KI-Tool vor, das laut Anbieter historische Unternehmensdaten mit aktuellen Nachrichten und Marktinformationen verknüpft, um Lieferketten- und Marktrisiken zu bewerten.",
+   "stamps": [{"utc": "2026-11-01T05:00:00Z", "url": "https://logistik-heute.de/news/logistik-it-ki-loesung-bewertet-lieferketten-und-marktrisiken-291093.html", "label": "Logistik Heute", "level": "secondary"}],
+   "relevance": "Risiko-Frühwarnung aus Nachrichtenlagen ist für Netzplanung und Einkauf interessant. Entscheidend wäre, welche internen Daten solche Tools brauchen (Datenschutz, Mitbestimmung).",
+   "social": null}
+ ],
+ "radar_note": "Sonst keine frische KI- oder IT-Meldung zu DHL Group, Deutsche Post oder großen Wettbewerbern im Fenster. Aussortiert u. a.: Analysten-Übersichten zur DHL-Aktie (Finanzportale, ohne KI-Bezug) und lokale Filialmeldungen.",
+ "running": [
+  {"title": "🏦 Anthropics Börsengang",
+   "trigger": "S-1-Entwurf öffentlich seit Montag, 26.10. (laut [BIG/Matt Stoller](https://www.thebignewsletter.com/p/why-anthropics-filing-crushed-tech), 31.10., 13:10 MEZ)",
+   "timeline": [
+    {"date": "26.10.", "event": "S-1-Entwurf veröffentlicht"},
+    {"date": "30.10.", "event": "Tech-Selloff; laut FT erwartet Blackstone für Anthropic kein Investment-Grade-Rating"},
+    {"date": "31.10.", "event": "Stollers Analyse: Amazon, Google und Microsoft vertreiben rund die Hälfte der Produkte"},
+    {"date": "01.11.", "event": "Pre-IPO-Futures auf Hyperliquid mit bis zu 10-fachem Hebel ([bloomingbit](https://en.bloomingbit.io/feed/news/123374), 03:51 MEZ)"}
+   ],
+   "text": "Stoller liest die S-1 als Dokument ungewöhnlicher Verflechtung; die S-1 selbst warnt vor schwer abschätzbaren Interessenkonflikten mit den strategischen Partnern. Die Pre-IPO-Futures werden ohne zugrunde liegende Aktienrechte gehandelt.",
+   "social": "[HN-Thread zu Stollers Analyse](https://news.ycombinator.com/item?id=50315574): {hn:50315574}. Das IPO-Motiv schwingt auch in den Leitplanken-Threads mit. (Offenlegung: Anthropic ist der Hersteller von Claude.)"},
+  {"title": "💸 OpenAIs Finanzierungsdelle & KI-Selloff",
+   "trigger": "FT-Bericht vom 31.10., 01:06 MEZ (Zeit laut Google News); Tech-Selloff am 30.10.",
+   "timeline": [
+    {"date": "30.10.", "event": "US-Techwerte fallen wegen KI-Ausgabensorgen (FT)"},
+    {"date": "31.10.", "event": "FT: OpenAI senkt das Ziel der Runde von 30 auf 20 Mrd. US-Dollar"},
+    {"date": "31.10.", "event": "WSJ: bislang 11 Mrd. gesichert, verhaltene Resonanz großer Investoren"}
+   ],
+   "text": "Laut [TechCrunch](https://techcrunch.com/2026/10/31/openai-reportedly-lowers-funding-target-for-new-round/) (31.10., 17:12 MEZ) war zuvor von einer Bewertung von 1,4 bzw. 1,25 Billionen US-Dollar die Rede. Hintergrund ist die Nervosität über KI-Infrastrukturausgaben.",
+   "social": "Im Fenster kaum eigene Social-Threads; die Stimmung taucht indirekt in den Anthropic-Debatten auf."}
+ ],
+ "dropped": [
+  {"title": "Deepgram übernimmt Daily/Pipecat", "reason": "TechCrunch [29.10.](https://techcrunch.com/2026/10/29/deepgram-acquires-pipecat-maker-daily-to-bolster-its-voice-ai-infrastructure/); Techmeme-Pickup erst 01.11., 07:15 MEZ"},
+  {"title": "Guidewire kauft Hyperexponential (1,7 Mrd. $)", "reason": "Reuters [27.10.](https://www.reuters.com/legal/litigation/guidewire-buy-uk-insurance-ai-firm-hyperexponential-deal-worth-up-21-billion-2026-10-27/); Techmeme-Pickup 01.11., 06:50 MEZ"},
+  {"title": "WaPo-Test: Chatbots zitieren KI-generierte Wahlinfo-Seiten", "reason": "[WaPo](https://www.washingtonpost.com/technology/2026/10/30/how-an-obscure-website-became-force-americas-election-information-machine/) 30.10., 10:00 MEZ; Techmeme-Pickup 01.11., 02:00 MEZ"},
+  {"title": "ChatGPT-Share-Link-Lücke (5.000 $ Bounty)", "reason": "[The Hacker News](https://thehackernews.com/2026/10/a-shared-chatgpt-link-could-run.html) 31.10., 06:33 MEZ, 5 h vor Fensterbeginn"},
+  {"title": "ChatGPT und Codex teilen ab Dezember ein Limit", "reason": "erste Berichte 30.10., 09:21 MEZ (Google News); [HN-Thread](https://news.ycombinator.com/item?id=50320588) erst 31.10., 22:49 MEZ ({hn:50320588})"},
+  {"title": "Altman: RAM in PCs sei Verschwendung / gefälschte Claude-Code-Extension im Cursor-Marketplace", "reason": "beide 31.10. früh morgens, vor Fensterbeginn (Techmeme-Zeiten)"},
+  {"title": "Apple bringt Qwen in Apple Intelligence (China)", "reason": "angekündigt 30.10. abends (erste Berichte ca. 23:00 MEZ)"},
+  {"title": "Nvidia-Chef Huang als Ziel chinesischer Spionage", "reason": "Bericht 29.10. (u. a. Semafor); neu nur Trumps Reaktion vom 31.10. (AFP)"},
+  {"title": "Gemeinsamer robots.txt-Opt-out für KI-Training (Google, OpenAI, Anthropic, Microsoft)", "reason": "ShiftDelete 31.10., 06:31 MEZ; [Engadget](https://www.engadget.com/2303225/google-openai-anthropic-ai-crawling-controls/) 11:34 MEZ war nur Folgebericht"},
+  {"title": "„Schüsse auf Altmans Haus“ (ABC News)", "reason": "[Artikel vom 13.04.2026](https://abcnews.com/US/man-allegedly-throws-molotov-cocktail-home-openai-ceo/story?id=131926703), von Google News fälschlich als 01.11. datiert"},
+  {"title": "OpenAI: Trainings-Agenten nutzten Artifactory als Nachrichtenbrett", "reason": "[Report-Stand 16.09.2026](https://alignment.openai.com/misalignment-reports/unauthorized-artifactory-writes-and-cross-sample-communication/), am 01.11. nur neu auf Reddit gepostet"},
+  {"title": "„The AI cost of JavaScript frameworks“", "reason": "Blogpost 28.10.; [HN](https://news.ycombinator.com/item?id=50323088) 01.11., 07:06 MEZ ({hn:50323088})"},
+  {"title": "GPT-5.6 Sol schlägt Factorio", "reason": "Blog nur tagesgenau (31.10.) datiert; [HN](https://news.ycombinator.com/item?id=50318871) {hn:50318871}"},
+  {"title": "Anthropic-Studie: automatisiertes Red-Teaming von Trainingsdaten-Monitoren", "reason": "[Primärquelle](https://alignment.anthropic.com/2026/automated-em-search/) nur monatsgenau („Oktober 2026“) datiert"},
+  {"title": "Fractile/UK-KI-Fonds (Telegraph, 01.11.)", "reason": "Telegraph gesperrt, keine Spiegelung, daher nicht belegt"}
+ ],
+ "method": [
+  "Entdeckung: 13 internationale Feeds, Techmeme-River, Google-News-RSS, HN-Algolia und Reddit-RSS (6 Subs). Jeder Zeitstempel wurde an der Primär- oder Erstquelle geprüft.",
+  "Nicht erreichbar: bloomberg.com-Artikelseiten (Bot-Check 403), help.openai.com und openai.com/index (Cloudflare), reuters.com, cnbc.com, axios.com, telegraph.co.uk, coindesk.com, wsj.com, seekingalpha.com, dealroom.co, mixed-news.com, cbs19.tv sowie GitHub-API und Atom-Feeds (GitHub-Webseiten liefen per Browser).",
+  "Nur über Aggregatoren datiert: Erscheinungszeiten von The Information (Meta), FT (OpenAI) und CNBC (xAI) laut Google News; Detailangaben zu Meta/Fourier und Bloombergs DeepSeek-Einordnung laut Techmeme. Den X-Post habe ich über die fxtwitter-API gelesen.",
+  "Gate-Beobachtung: Google-News-Zeitstempel waren mehrfach grob falsch (ABC-Artikel vom April, Stocktwits-Artikel vom Juli, Reuters-Archivmeldungen mit aktuellem Datum). Techmeme spülte am Wochenende mehrere Meldungen vom 27. bis 30.10. als neu hoch.",
+  "Beispieldatei: Inhalte des Briefings vom 01.11.2026 im neuen Format; Radar und P&P-Einordnung wurden für das Beispiel nachträglich ergänzt."
+ ]
+}

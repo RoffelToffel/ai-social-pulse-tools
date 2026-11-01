@@ -1,0 +1,6 @@
+# Logistik-Feeds – am 01.11.2026 erreichbar
+# NICHT funktionierend: https://www.dvz.de/rss.xml (404), Presse-RSS von group.dhl.com (Timeout)
+https://www.freightwaves.com/news/feed
+https://www.supplychaindive.com/feeds/news/
+https://theloadstar.com/feed/
+https://www.logistik-heute.de/rss.xml
