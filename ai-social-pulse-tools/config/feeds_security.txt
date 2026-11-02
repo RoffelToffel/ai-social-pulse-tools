@@ -1,0 +1,8 @@
+# IT-Sicherheit – am 02.11.2026 erreichbar
+# Achtung: Hersteller-Research (Unit 42, Talos, CrowdStrike, Chainalysis …) erscheint hier oft Tage
+# nach dem Original. Datum immer im Blog des Herstellers prüfen.
+https://www.heise.de/security/rss/news-atom.xml
+https://www.bleepingcomputer.com/feed/
+https://feeds.feedburner.com/TheHackersNews
+https://securityaffairs.com/feed
+https://www.theregister.com/security/headlines.atom

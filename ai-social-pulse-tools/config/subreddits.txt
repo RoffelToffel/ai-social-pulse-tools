@@ -1,4 +1,7 @@
-# Reddit-RSS: https://www.reddit.com/r/<sub>/new.rss?limit=100 (429 = Rate-Limit -> 20-30 s warten)
+# Reddit-RSS je Sub (429 = Rate-Limit -> 20-30 s warten):
+#   https://www.reddit.com/r/<sub>/new.rss?limit=100      neueste Posts (lückenlos im Fenster)
+#   https://www.reddit.com/r/<sub>/top/.rss?t=day         stärkste Posts der letzten 24 h (getestet 02.11.2026)
+# Punkte/Kommentare liefert das RSS nicht -> Thread per browse.js reddit bzw. {rd:ID} auffrischen.
 artificial
 LocalLLaMA
 MachineLearning

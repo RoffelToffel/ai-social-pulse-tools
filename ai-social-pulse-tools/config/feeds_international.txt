@@ -1,4 +1,4 @@
-# Internationale Feeds (RSS/Atom) – alle am 01.11.2026 erreichbar
+# Internationale Feeds (RSS/Atom) – am 01.11. und 02.11.2026 erreichbar, Ausnahmen markiert
 https://www.techmeme.com/feed.xml
 https://feeds.bloomberg.com/technology/news.rss
 https://feeds.bloomberg.com/markets/news.rss
@@ -8,8 +8,11 @@ https://www.theguardian.com/technology/artificialintelligenceai/rss
 https://techcrunch.com/category/artificial-intelligence/feed/
 https://arstechnica.com/ai/feed/
 https://www.wired.com/feed/tag/ai/latest/rss
+# wackelig: 01.11.2026 ok, 02.11.2026 HTTP 403
 https://www.zdnet.com/topic/artificial-intelligence/rss.xml
 https://www.theverge.com/rss/index.xml
 https://openai.com/news/rss.xml
 https://hnrss.org/frontpage?points=50
 https://en.yna.co.kr/RSS/news.xml
+# Open Source und Infrastruktur (KI-Last in Kernel, Treibern, Datenbanken) – 02.11.2026 erreichbar
+https://www.phoronix.com/rss.php

@@ -4,3 +4,7 @@ https://www.freightwaves.com/news/feed
 https://www.supplychaindive.com/feeds/news/
 https://theloadstar.com/feed/
 https://www.logistik-heute.de/rss.xml
+# Post- und Paketbranche – 02.11.2026 erreichbar (wenige Meldungen pro Tag, aber direkt relevant)
+https://postandparcel.info/feed/
+https://www.parcelandpostaltechnologyinternational.com/feed
+# Nicht gefunden bzw. nicht erreichbar (02.11.2026): kep-aktuell.de/rss.xml (502), BSI- und BNetzA-RSS (404 unter den geratenen URLs)
