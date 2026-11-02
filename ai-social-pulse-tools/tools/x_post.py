@@ -6,7 +6,8 @@
 
 Ausgabe (JSON): created_utc, Autor, Originaltext, Likes/Reposts/Antworten.
 So geprüfte Posts gelten als live verifiziert; im Briefing als "über fxtwitter geprüft"
-kennzeichnen. Zitate realer Personen trotzdem sparsam und mit Link zum Original.
+kennzeichnen. Wörtliche Zitate realer Personen trotzdem nicht übernehmen: sinngemäß
+wiedergeben und auf das Original verlinken.
 """
 import datetime as dt
 import json
