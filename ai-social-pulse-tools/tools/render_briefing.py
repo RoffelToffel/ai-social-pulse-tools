@@ -9,7 +9,13 @@
 Erzeugt out/briefing.html (Outlook-tauglich), out/briefing.txt (Plaintext-Fallback) und
 out/meta.json (Betreff, Preheader, QA-Ergebnis). Exit-Code 0 = QA bestanden, 2 = QA-Fehler.
 Schema, Mini-Markup ([Text](URL), **fett**, _kursiv_) und Platzhalter ({hn:ID}, {hnp:ID},
-{hnrate:ID}, {rd:ID}, {gh:owner/repo}) sind in README.md beschrieben.
+{hnrate:ID}, {rd:ID}, {gh:owner/repo}, {bs:handle/rkey}, {x:user/statusid}) sind in README.md
+beschrieben.
+
+Zeitfenster: window_start_utc bis now_utc (= JETZT aus Schritt 1, Redaktionsschluss).
+Zeitstempel nach now_utc gehören ins nächste Briefing (QA-Fehler). Als „erweitert“ gilt
+das Fenster nur, wenn window_extended gesetzt ist oder es mehr als 24 h + 6 min umfasst –
+dieselbe Regel wie in brevo_history.py.
 """
 import argparse
 import datetime as dt
@@ -26,6 +32,8 @@ BRAND = "AI Social Pulse"
 SUBJECT_PREFIX = "AI Social Pulse – Dein KI-Briefing für den {date}"
 SUBJECT_MAX = 110
 SOCIAL_MAX_AGE = dt.timedelta(minutes=10)
+WINDOW_END_TOLERANCE = dt.timedelta(minutes=2)
+EXTENDED_AFTER = dt.timedelta(hours=24, minutes=6)
 FONT = "font-family:'Segoe UI',Arial,Helvetica,sans-serif;"
 PALETTE = [("#2563eb", "#eff6ff"), ("#dc2626", "#fef2f2"), ("#7c3aed", "#f5f3ff"), ("#059669", "#ecfdf5"),
            ("#d97706", "#fffbeb"), ("#0891b2", "#ecfeff"), ("#db2777", "#fdf2f8")]
@@ -33,7 +41,7 @@ LEVELS = {"primary": ("✅", "Primärquelle"), "secondary": ("🟡", "Sekundärq
           "aggregator": ("🔶", "nur Aggregator")}
 AMPEL = {"red": "🔴 überwiegend kritisch", "yellow": "🟡 gemischt", "green": "🟢 überwiegend positiv"}
 
-PH = re.compile(r"\{(hn|hnp|hnrate|rd|gh):([^}\s]+)\}")
+PH = re.compile(r"\{(hn|hnp|hnrate|rd|gh|bs|x):([^}\s]+)\}")
 LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
 BOLD = re.compile(r"\*\*(.+?)\*\*")
 ITAL = re.compile(r"(?<![\w*])_(?!\s)(.+?)(?<!\s)_(?![\w*])")
@@ -68,6 +76,17 @@ def fmt_dt(d):
     return f"{loc:%d.%m.}, {loc:%H:%M} {zone}"
 
 
+def fmt_hours(h):
+    return f"{h:.1f}".replace(".", ",")
+
+
+def is_extended(data, now, start):
+    flag = data.get("window_extended")
+    if isinstance(flag, bool):
+        return flag
+    return (now - start) > EXTENDED_AFTER
+
+
 def fmt_age(d, ref):
     h = (ref - d).total_seconds() / 3600
     if h < 1:
@@ -93,6 +112,12 @@ class Ctx:
             if kind == "rd":
                 d = self.social["reddit"][key]
                 return f"{d['score']} Punkte / {d['comments']} Kommentare"
+            if kind == "bs":
+                d = self.social["bluesky"][key]
+                return f"{d['likes']} Likes / {d['reposts']} Reposts"
+            if kind == "x":
+                d = self.social["x"][key]
+                return f"{d['likes']} Likes / {d['reposts']} Reposts"
             d = self.social["github"][key]
             return f"{d['stars']} Sterne, {d['forks']} Forks"
         except (KeyError, TypeError):
@@ -156,8 +181,9 @@ def qa_check(data, social, ref, qa, preview):
             except (KeyError, ValueError):
                 qa.err(f"{name}: Zeitstempel unlesbar")
                 continue
-            if not (start - dt.timedelta(minutes=1) <= d <= ref + dt.timedelta(minutes=10)):
-                qa.err(f"{name}: Zeitstempel {st['utc']} liegt außerhalb des Fensters")
+            if not (start - dt.timedelta(minutes=1) <= d <= now + WINDOW_END_TOLERANCE):
+                where = "nach Fensterende – gehört ins nächste Briefing" if d > now else "vor Fensterbeginn"
+                qa.err(f"{name}: Zeitstempel {st['utc']} liegt außerhalb des Fensters ({where})")
             if not str(st.get("url", "")).startswith("http"):
                 qa.err(f"{name}: Quellenlink fehlt")
             if st.get("level") not in LEVELS:
@@ -218,7 +244,7 @@ def qa_check(data, social, ref, qa, preview):
             pre = s[max(0, m.start() - 90):m.start()]
             q = m.group(1) or m.group(2)
             if SPEECH.search(pre) and NAME.search(pre):
-                qa.err(f"Mögliches wörtliches Personenzitat (nur mit live geprüftem Original): „{q[:60]}“")
+                qa.err(f"Mögliches wörtliches Personenzitat – sinngemäß wiedergeben: „{q[:60]}“")
             elif len(q.split()) >= 3 and q[:80] not in qa.quotes:  # kurze Begriffe nicht auflisten
                 qa.quotes.append(q[:80])
         if "](" in LINK.sub("", s):
@@ -337,8 +363,9 @@ def section(txt, color):
 def build_html(data, ctx, meta):
     now, start = parse_utc(data["now_utc"]), parse_utc(data["window_start_utc"])
     hours = (now - start).total_seconds() / 3600
-    fresh_title = "🟢 Frisch (&lt; 24 h)" if hours <= 24.2 else f"🟢 Frisch (seit {fmt_dt(start)})"
-    window = f"Fenster {fmt_dt(start)} – {fmt_dt(now)}" + (f" (erweitert auf {hours:.0f} h)" if hours > 24.2 else "")
+    extended = is_extended(data, now, start)
+    fresh_title = f"🟢 Frisch (seit {fmt_dt(start)})" if extended else "🟢 Frisch (&lt; 24 h)"
+    window = f"Fenster {fmt_dt(start)} – {fmt_dt(now)}" + (f" (erweitert auf {fmt_hours(hours)} h)" if extended else "")
     tldr = "".join(p(md_html(t, ctx), 14, "#0f172a", "0 0 7px 0") for t in data["tldr"])
     disclosure = ("ℹ️ Offenlegung: Recherche und Text stammen von Claude, einem KI-Modell von Anthropic. "
                   "Bei Anthropic-Themen besteht ein möglicher Interessenkonflikt; die Einordnung dort ist bewusst "
@@ -416,8 +443,9 @@ def stamps_text(stamps, ctx):
 def build_text(data, ctx, meta):
     now, start = parse_utc(data["now_utc"]), parse_utc(data["window_start_utc"])
     T = lambda s: md_text(s, ctx)
+    ext = f" (erweitert auf {fmt_hours((now - start).total_seconds() / 3600)} h)" if is_extended(data, now, start) else ""
     L = [f"{BRAND.upper()} – Dein KI-Briefing für den {data['date']}",
-         f"Fenster {fmt_dt(start)} – {fmt_dt(now)} · Social-Stand {meta['social_stand']}", "", "TL;DR"]
+         f"Fenster {fmt_dt(start)} – {fmt_dt(now)}{ext} · Social-Stand {meta['social_stand']}", "", "TL;DR"]
     L += [f"- {T(t)}" for t in data["tldr"]]
     L += ["", "Offenlegung: Recherche und Text stammen von Claude (Anthropic). Bei Anthropic-Themen besteht ein "
               "möglicher Interessenkonflikt.", "", "=== FRISCH ==="]
@@ -478,10 +506,13 @@ def main():
         qa.warn(f"Betreff länger als {SUBJECT_MAX} Zeichen ({len(subject)})")
     fetched = parse_utc(social["fetched_utc"]) if social.get("fetched_utc") else ref
     now, start = parse_utc(data["now_utc"]), parse_utc(data["window_start_utc"])
-    auto_method = [f"Fenster: {fmt_dt(start)} bis {fmt_dt(now)} ({(now - start).total_seconds() / 3600:.1f} h). "
-                   f"Alle Zeiten in deutscher Ortszeit.",
-                   f"Social-Zahlen (HN-API, Reddit-DOM, GitHub): Stand {fmt_dt(fetched)}, unmittelbar vor dem Versand "
-                   f"aufgefrischt. Stimmungsbilder beruhen auf tatsächlich gelesenen Kommentaren."]
+    sources = [name for key, name in (("hn", "HN-API"), ("reddit", "Reddit-DOM"), ("github", "GitHub"),
+                                      ("bluesky", "Bluesky-API"), ("x", "X über fxtwitter")) if social.get(key)]
+    ext_note = " – erweitert, weil das letzte Briefing früher verschickt wurde" if is_extended(data, now, start) else ""
+    auto_method = [f"Fenster: {fmt_dt(start)} bis {fmt_dt(now)} ({fmt_hours((now - start).total_seconds() / 3600)} h"
+                   f"{ext_note}). Alle Zeiten in deutscher Ortszeit.",
+                   f"Social-Zahlen ({', '.join(sources) or 'keine Platzhalter'}): Stand {fmt_dt(fetched)}, unmittelbar "
+                   f"vor dem Versand aufgefrischt. Stimmungsbilder beruhen auf tatsächlich gelesenen Kommentaren."]
     meta = {
         "subject": subject,
         "preheader": md_text(data.get("preheader") or (data["tldr"][0] if data.get("tldr") else ""), ctx)[:180],

@@ -1,0 +1,4 @@
+# Arbeitsdateien der Routine (siehe README) – nicht versionieren
+out/
+.runtime/
+__pycache__/

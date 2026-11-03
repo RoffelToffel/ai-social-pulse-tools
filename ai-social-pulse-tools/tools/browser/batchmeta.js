@@ -1,5 +1,6 @@
 // Batch-Verifikation von Artikeln (getestet 01.11.2026):
-// je URL finale URL, HTTP-Status, Titel, Zeit-Metadaten (meta, <time>, JSON-LD) und erste Absätze.
+// je URL finale URL, HTTP-Status, Titel, Zeit-Metadaten (meta, <time>, JSON-LD) und erste Absätze
+// (Rückfall auf Textzeilen, wenn eine Seite kaum <p>-Absätze hat; Feld parasSource).
 // Google-News-Links (news.google.com/rss/articles/...) werden per JS-Redirect aufgelöst.
 //   node tools/browser/batchmeta.js urls.txt out/verify.json [parallel=3] [absätze=6]
 'use strict';
@@ -31,10 +32,26 @@ async function one(ctx, url, nParas) {
         if (m) ldDates.push(...m.slice(0, 4));
       });
       const h1 = (document.querySelector('h1') || {}).innerText || '';
-      const paras = [...document.querySelectorAll('article p, main p, .article-body p, p')]
-        .map(p => p.innerText.trim()).filter(t => t.length > 50);
+      const pickParas = () => {
+        // Absätze aus dem Artikel-Container; <p> nur, wenn sie den Großteil seines Textes abdecken
+        // (Phoronix u.a. setzen den Artikel ohne <p>, Boilerplate steht dagegen in <p>).
+        const sels = ['article', '[itemprop="articleBody"]', '.article-body', '.entry-content', '.post-content',
+          '.article-content', '[class*="article-details"]', 'main', '#content', '.content'];
+        const cont = sels.map(s => document.querySelector(s)).find(Boolean);
+        const pOf = el => [...new Set([...el.querySelectorAll('p')].map(p => p.innerText.trim()).filter(t => t.length > 50))];
+        const linesOf = el => [...new Set(el.innerText.split('\n').map(t => t.trim()).filter(t => t.length > 80))];
+        const len = a => a.reduce((n, t) => n + t.length, 0);
+        if (cont) {
+          const ps = pOf(cont), ls = linesOf(cont);
+          if (ps.length >= 3 && len(ps) >= 0.6 * len(ls)) return [ps, 'p:container'];
+          if (ls.length >= 3) return [ls, 'text:container'];
+        }
+        const ps = pOf(document.body);
+        return ps.length >= 3 ? [ps, 'p:body'] : [linesOf(document.body), 'text:body'];
+      };
+      const [allParas, parasSource] = pickParas();
       return { title: document.title.slice(0, 200), h1: h1.slice(0, 200), metas, times, ldDates,
-               paras: [...new Set(paras)].slice(0, n) };
+               paras: allParas.slice(0, n), parasSource };
     }, nParas));
   } catch (e) {
     res.error = String(e).slice(0, 200);
